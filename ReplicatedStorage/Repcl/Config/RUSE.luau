@@ -1,3 +1,3 @@
-local module = {}
+local RUSE = {}
 
-return module
+return RUSE

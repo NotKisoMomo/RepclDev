@@ -1,3 +1,0 @@
-local CEL = {}
-
-return CEL

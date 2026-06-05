@@ -22,8 +22,18 @@ Register({
 	ContextType = "Server" | "Client" | "Shared",
 	Parsed = {},
 	Handler = function(ctx)
-		ctx.Output
-		
+		local Output = ctx.Output
+		Output:Write("Hello from server")
+		Output:Warn("Hello from server")
+		Output:Error("Hello from server")
+		Output:Info("Hello from server")
+		Output:Success("Hello from server")
+		Output:Write("Hello from server")
+		Output:Custom("Hello from server", {
+			Color,
+			...
+		})
+		...
 	end,
 	ClientHandler = function(ctx)
 		ctx.Commit({"Hello From Client"})

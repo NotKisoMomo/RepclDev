@@ -12,9 +12,6 @@ end
 
 local CEL = {}
 
-...
-
-
 Register({
 	Name = "list",
 	Aliases = {"ls"},
@@ -31,9 +28,7 @@ Register({
 		Output:Write("Hello from server")
 		Output:Custom("Hello from server", {
 			Color,
-			...
 		})
-		...
 	end,
 	ClientHandler = function(ctx)
 		ctx.Commit({"Hello From Client"})

@@ -6,43 +6,33 @@ local Types = require(_Repcl.Types)
 
 local SessionManager = require(Managers.SessionManager)
 
-function Register(config: Types.CELRegistry)
+function Register(config: Types.CommandRegistry)
 	SessionManager.Register(config)
+end
+
+function Filter(T: {any}, Exclude: {string})
+	T = table.clone(T)
+	for i in Exclude do
+		for k in T do
+			local t = typeof(k)
+			if typeof(k) == t then
+				T[k] = nil
+			end
+		end
+	end
+	return T
 end
 
 local CEL = {}
 
-Register({
-	Name = "list",
-	Aliases = {"ls"},
-	Description = "List all registered commands",
-	ContextType = "Server" | "Client" | "Shared",
-	Parsed = {},
-	Handler = function(ctx)
-		local Output = ctx.Output
-		Output:Write("Hello from server")
-		Output:Warn("Hello from server")
-		Output:Error("Hello from server")
-		Output:Info("Hello from server")
-		Output:Success("Hello from server")
-		Output:Write("Hello from server")
-		Output:Custom("Hello from server", {
-			Color,
-		})
-	end,
-	ClientHandler = function(ctx)
-		ctx.Commit({"Hello From Client"})
-		ctx.Pushed(function(data)
-			
-		end)
-	end,
-	ServerHandler = function(ctx)
-		ctx.Push({Message = "Hello From Server"})
-		ctx.Committed(function(data)
-			print(data)
-		end)
-	end,
-})
+CEL.SomeConfig = "SOmeValue"
 
+function CEL.Export()
+	return Filter(CEL, {"function"})
+end
+
+function CEL.Import(t: {Types.})
+	return Filter(CEL, {"function"})
+end
 
 return CEL
